@@ -1,7 +1,6 @@
 package userantiantidebug
 
 import (
-	"fmt"
 	"syscall"
 	"unsafe"
 )
@@ -17,6 +16,7 @@ type ANSI_STRING struct {
 	MaximumLength int16
 	Buffer        *byte
 }
+
 // creds to advdebug ported from cs to go
 var (
 	modNtdll      = syscall.NewLazyDLL("ntdll.dll")
@@ -144,5 +144,5 @@ func DetectHooksOnCommonWinAPIFunctions(moduleName string, functions []string) b
 }
 
 func AntiAntiDebug() {
-	fmt.Println("Detecting Hooks on Common WinAPI Functions by checking for Bad Instructions on Functions Addresses (Most Effective on x64): ", DetectHooksOnCommonWinAPIFunctions("", nil))
+	DetectHooksOnCommonWinAPIFunctions("", nil)
 }

@@ -1,12 +1,11 @@
 package parentantidebug
 
 import (
-	"fmt"
+	"golang.org/x/sys/windows"
 	"os"
 	"path/filepath"
 	"syscall"
 	"unsafe"
-	"golang.org/x/sys/windows"
 )
 
 var (
@@ -56,9 +55,6 @@ func ParentAntiDebug() {
 	parname := filepath.Base(pa1231)
 
 	if parname != "explorer.exe" && parname != "cmd.exe" {
-		fmt.Printf("Debug Check: Parent process (%s) is not in the whitelist\n", parname)
 		os.Exit(-1)
-	} else {
-		fmt.Printf("Debug Check: Parent process (%s) is in the whitelist\n", parname)
 	}
 }

