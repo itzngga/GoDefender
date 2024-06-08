@@ -2,64 +2,62 @@ package main
 
 import (
 	"fmt"
+	"github.com/itzngga/GoDefender/AntiDebug/InternetCheck"
+	"github.com/itzngga/GoDefender/AntiDebug/IsDebuggerPresent"
+	processkiller "github.com/itzngga/GoDefender/AntiDebug/KillBadProcesses"
+	runningprocesses "github.com/itzngga/GoDefender/AntiDebug/RunningProcesses"
+	"github.com/itzngga/GoDefender/AntiDebug/pcuptime"
+	kvmcheck "github.com/itzngga/GoDefender/AntiVirtualization/KVMCheck"
+	triagecheck "github.com/itzngga/GoDefender/AntiVirtualization/TriageDetection"
+	"github.com/itzngga/GoDefender/AntiVirtualization/USBCheck"
+	usernamecheck "github.com/itzngga/GoDefender/AntiVirtualization/UsernameCheck"
 	"os"
-	// Anti-Virtualization
-	"github.com/EvilBytecode/GoDefender/AntiVirtualization/TriageDetection"
-	"github.com/EvilBytecode/GoDefender/AntiVirtualization/MonitorMetrics"
-	"github.com/EvilBytecode/GoDefender/AntiVirtualization/VirtualboxDetection"
-	"github.com/EvilBytecode/GoDefender/AntiVirtualization/VMWareDetection"
-	"github.com/EvilBytecode/GoDefender/AntiVirtualization/KVMCheck"
-	"github.com/EvilBytecode/GoDefender/AntiVirtualization/UsernameCheck"
-	"github.com/EvilBytecode/GoDefender/AntiVirtualization/USBCheck"
-	"github.com/EvilBytecode/GoDefender/AntiVirtualization/RecentFileActivity"
 
+	"github.com/itzngga/GoDefender/AntiVirtualization/MonitorMetrics"
+	"github.com/itzngga/GoDefender/AntiVirtualization/RecentFileActivity"
+	"github.com/itzngga/GoDefender/AntiVirtualization/VMWareDetection"
+	"github.com/itzngga/GoDefender/AntiVirtualization/VirtualboxDetection"
 
 	// Anti-Debug
-	"github.com/EvilBytecode/GoDefender/AntiDebug/IsDebuggerPresent"
-	"github.com/EvilBytecode/GoDefender/AntiDebug/RemoteDebugger"
-	"github.com/EvilBytecode/GoDefender/AntiDebug/pcuptime"
-	"github.com/EvilBytecode/GoDefender/AntiDebug/CheckBlacklistedWindowsNames"
-	"github.com/EvilBytecode/GoDefender/AntiDebug/RunningProcesses"
-	//"github.com/EvilBytecode/GoDefender/AntiDebug/ParentAntiDebug"
-	"github.com/EvilBytecode/GoDefender/AntiDebug/KillBadProcesses"
-	"github.com/EvilBytecode/GoDefender/AntiDebug/UserAntiAntiDebug"
-	"github.com/EvilBytecode/GoDefender/AntiDebug/InternetCheck"
+	"github.com/itzngga/GoDefender/AntiDebug/CheckBlacklistedWindowsNames"
+	"github.com/itzngga/GoDefender/AntiDebug/RemoteDebugger"
 
+	"github.com/itzngga/GoDefender/AntiDebug/UserAntiAntiDebug"
 	// Process Related
-	//"github.com/EvilBytecode/GoDefender/Process/CriticalProcess"
+	//"github.com/itzngga/GoDefender/Process/CriticalProcess"
 )
 
 func main() {
-	/* 
-	ANTIDEBUG
-	-----------
-	- IsDebuggerPresent
-	- RemoteDebugger
-	- PC Uptime Check
-	- Running Proccesses Count
-	- Check blacklisted windows
-	- KillBlacklisted Proceseses
-	- Parent AntiDebug
+	/*
+		ANTIDEBUG
+		-----------
+		- IsDebuggerPresent
+		- RemoteDebugger
+		- PC Uptime Check
+		- Running Proccesses Count
+		- Check blacklisted windows
+		- KillBlacklisted Proceseses
+		- Parent AntiDebug
 	*/
 	RecentFileActivity.RecentFileActivityCheck()
 	USBCheck.PluggedIn()
 	userantiantidebug.AntiAntiDebug()
-        IsDebuggerPresent.IsDebuggerPresent()
+	IsDebuggerPresent.IsDebuggerPresent()
 	remotedebuggercheck.RemoteDebugger()
 	pcuptime.CheckUptime(1200)
 	runningprocesses.CheckRunningProcessesCount(50)
-        blacklistcheck.CheckBlacklistedWindows()
+	blacklistcheck.CheckBlacklistedWindows()
 	//parentantidebug.ParentAntiDebug()
 	processkiller.KillProcesses()
 
-	/* 
-	AntiVirulization
-	----------------
-	- Triage Check
-	- VMWare Check
-	- Anti KVM
-	- Username Check
-	- 
+	/*
+		AntiVirulization
+		----------------
+		- Triage Check
+		- VMWare Check
+		- Anti KVM
+		- Username Check
+		-
 	*/
 
 	InternetCheck.CheckConnection()
@@ -75,7 +73,7 @@ func main() {
 	usernamecheck.CheckForBlacklistedNames()
 	fmt.Println("IF YOURE HERE YOU PASSED LOL")
 	/*
-	EXTRA THINGS NOW:
+		EXTRA THINGS NOW:
 	*/
 	//programutils.SetDebugPrivilege() this is for devs who plan on continuing
 	//programutils.SetProcessCritical() // this automatically gets the SeDebugPrivillige
